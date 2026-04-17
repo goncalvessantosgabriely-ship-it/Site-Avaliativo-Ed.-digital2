@@ -1,0 +1,91 @@
+// --- GESTÃO DE DADOS ---
+const members = [
+    { name: "Corey Taylor", role: "Vocalista (#8)", bio: "Conhecido por sua versatilidade vocal e máscaras icônicas." },
+    { name: "Mick Thomson", role: "Guitarra (#7)", bio: "O mestre dos riffs pesados e da presença imponente." },
+    { name: "Sid Wilson", role: "DJ (#0)", bio: "Responsável pela atmosfera industrial e scratches." }
+];
+
+const historyData = [
+    { title: "A Fundação", content: "O Slipknot surgiu em 1995 em Des Moines, Iowa." },
+    { title: "O Conceito das Máscaras", content: "As máscaras servem para eliminar a identidade individual em favor da música." }
+];
+
+// --- RENDERIZAÇÃO DINÂMICA ---
+function initApp() {
+    renderMembers();
+    renderAccordion();
+    setupScrollReveal();
+}
+
+function renderMembers() {
+    const container = document.getElementById('members-container');
+    container.innerHTML = members.map(m => `
+        <article class="member-card">
+            <h3>${m.name}</h3>
+            <p><strong>${m.role}</strong></p>
+            <p>${m.bio}</p>
+        </article>
+    `).join('');
+}
+
+function renderAccordion() {
+    const container = document.getElementById('accordion-container');
+    container.innerHTML = historyData.map((item, index) => `
+        <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(${index})">
+                ${item.title}
+            </button>
+            <div class="accordion-content" id="content-${index}">
+                <p>${item.content}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+// --- ACESSIBILIDADE: CONTROLE DE FONTE ---
+let currentFontSize = 16;
+function changeFontSize(action) {
+    if(action === 'increase') currentFontSize += 2;
+    else currentFontSize -= 2;
+    document.documentElement.style.setProperty('--font-base', currentFontSize + 'px');
+}
+
+// --- ALTO CONTRASTE ---
+function toggleContrast() {
+    document.body.classList.toggle('high-contrast');
+}
+
+// --- CARROSSEL ---
+let currentSlide = 0;
+document.querySelector('.next')?.addEventListener('click', () => moveSlide(1));
+document.querySelector('.prev')?.addEventListener('click', () => moveSlide(-1));
+
+function moveSlide(direction) {
+    const track = document.getElementById('carousel-track');
+    const slides = members.length; // Usando os dados dos membros para popular o carrossel
+    currentSlide = (currentSlide + direction + slides) % slides;
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+// --- ACORDEÃO LOGIC ---
+function toggleAccordion(index) {
+    const contents = document.querySelectorAll('.accordion-content');
+    contents[index].classList.toggle('active');
+    const isExpanded = contents[index].classList.contains('active');
+    document.querySelectorAll('.accordion-header')[index].setAttribute('aria-expanded', isExpanded);
+}
+
+// --- SCROLL REVEAL ---
+function setupScrollReveal() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.member-card').forEach(card => observer.observe(card));
+}
+
+window.onload = initApp;
