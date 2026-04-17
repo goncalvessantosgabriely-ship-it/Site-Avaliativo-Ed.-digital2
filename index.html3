@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slipknot | Official Fan Experience</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header role="banner">
+        <nav aria-label="Menu Principal">
+            <div class="logo">SLIPKNOT</div>
+            <div class="accessibility-controls">
+                <button onclick="changeFontSize('increase')" aria-label="Aumentar fonte">A+</button>
+                <button onclick="changeFontSize('decrease')" aria-label="Diminuir fonte">A-</button>
+                <button onclick="toggleContrast()" aria-label="Alternar Alto Contraste">🌓</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <h1 id="hero-title">We Are Not Your Kind</h1>
+            <p>Explore o universo de uma das maiores bandas de metal do mundo.</p>
+        </section>
+
+        <section id="members-section" aria-labelledby="members-title">
+            <h2 id="members-title">Membros</h2>
+            <div id="members-container" class="grid-container">
+                </div>
+        </section>
+
+        <section class="carousel-section" aria-label="Galeria de Álbuns">
+            <h2>Discografia</h2>
+            <div class="carousel" role="region" aria-roledescription="carousel">
+                <div id="carousel-track" class="carousel-track">
+                    </div>
+                <button class="prev" aria-label="Slide anterior">❮</button>
+                <button class="next" aria-label="Próximo slide">❯</button>
+            </div>
+        </section>
+
+        <section id="history-section" aria-labelledby="history-title">
+            <h2 id="history-title">Trajetória e Curiosidades</h2>
+            <div id="accordion-container">
+                </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2023 Slipknot Fan Project. Desenvolvido com foco em acessibilidade.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
